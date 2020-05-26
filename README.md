@@ -24,5 +24,5 @@
 3. Start recently built **weissbeerger-web** application by running:
 
     ``
-         docker-compose up -d weissbeerger-jenkins
+         docker-compose up -d weissbeerger-web
     ``
