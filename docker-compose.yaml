@@ -1,0 +1,14 @@
+version: '3'
+services:
+  weissbeerger-jenkins:
+    image: adutchak/weissbeerger-jenkins-with-docker:2.238-alpine
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./jenkins-jobs:/var/jenkins_home/jobs
+      - ./docker-images:/var/jenkins_home/docker-images
+      - /var/run/docker.sock:/var/run/docker.sock
+  weissbeerger-web:
+    image: weissbeerger-web:v1
+    ports:
+      - '80:80'
