@@ -14,7 +14,11 @@
 
    **./jenkins-jobs** folder contains Job's configuration data as requested in the task.
 
-2. To build **weissbeerger-web** application as requested in the exercise - use pipeline named **"Weissbeerger web app"**. Default parameters already matching image name&version references in **docker-compose.yaml**. However, you can specify a different image name & version.
+2. To build **weissbeerger-web** application as requested in the exercise (assuming we'll be relying on local docker images cache, without push\pull proccess involved) - use pipeline named **"Weissbeerger web app"**. 
+
+Default parameters already matching image name&version references in **docker-compose.yaml**. 
+However, you can specify a different image name & version.
+
 If you change the image name or version in Jenkins don't forget to change it in the docker-compose.yaml too.
 
 3. Start recently built **weissbeerger-web** application by running:
