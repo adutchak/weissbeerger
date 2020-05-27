@@ -32,4 +32,4 @@
          export appVersion=v1 && docker-compose up -d weissbeerger-web
     ``
 
-    You will see the command example in the last Print message.
+    You will also see the command example in the last pipeline print message from the previous step.
