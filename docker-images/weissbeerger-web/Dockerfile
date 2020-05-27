@@ -18,5 +18,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Copying application content
 COPY web/ /var/www/html/
 
+EXPOSE 80
+
 # Starting Nginx when spinning up the container
 CMD ["nginx", "-g", "daemon off;"]

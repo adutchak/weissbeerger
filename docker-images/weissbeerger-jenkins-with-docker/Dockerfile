@@ -12,5 +12,7 @@ COPY jenkins-home/ /var/jenkins_home
 # Docker needed for Jenkins to build images
 RUN apk update && apk add --no-cache docker
 
+EXPOSE 8080
+
 # Adding jenkins used into docker group
 RUN addgroup jenkins docker
