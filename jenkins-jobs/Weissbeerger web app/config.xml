@@ -26,29 +26,25 @@
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.80">
-    <script>def dockerfilePath=&quot;/var/jenkins_home/docker-images/weissbeerger-web&quot;
-
-pipeline {
-    
-    agent any
-    
-    stages {
-        stage(&quot;Build_docker_image&quot;) {
-            steps {
-                    script {
-                        def applicationVersion=&quot;v${BUILD_NUMBER}&quot;
-                        def weissbeergerImage = docker.build(&quot;${appName}:${applicationVersion}&quot;, &quot;${dockerfilePath}&quot;) 
-                        //weissbeergerImage.push()
-                        echo &quot;${appName} application (version: ${applicationVersion}) successfully built.&quot;
-                        echo &quot;Run the following command to re-deploy it &apos;export appVersion=${applicationVersion} &amp;&amp; docker-compose up -d weissbeerger-web&apos;&quot;
-                    }
-            }
-        }
-    }
-}
-</script>
-    <sandbox>true</sandbox>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.80">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@4.2.2">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>https://github.com/adutchak/weissbeerger.git</url>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>*/master</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="list"/>
+      <extensions/>
+    </scm>
+    <scriptPath>Jenkinsfile</scriptPath>
+    <lightweight>true</lightweight>
   </definition>
   <triggers/>
   <disabled>false</disabled>
