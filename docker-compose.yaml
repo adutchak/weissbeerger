@@ -1,6 +1,7 @@
 version: '3'
 services:
   weissbeerger-jenkins:
+    container_name: weissbeerger-jenkins
     image: adutchak/weissbeerger-jenkins-with-docker:2.238-alpine
     ports:
       - '8080:8080'
@@ -10,6 +11,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock #Mounting local docker daemon socket into Jenkins so it can utilize host's Docker engine
   
   weissbeerger-web:
-    image: weissbeerger-web:v1 #A reference to a docker image which should be built by Jenkins first
+    container_name: weissbeerger-web
+    image: weissbeerger-web:${appVersion} #A reference to a docker image which should be built by Jenkins first
     ports:
       - '80:80'

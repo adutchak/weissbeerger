@@ -16,13 +16,20 @@
 
 2. To build **weissbeerger-web** application as requested in the exercise (assuming we'll be relying on local docker images cache, without push\pull proccess involved) - use pipeline named **"Weissbeerger web app"**. 
 
-   Default parameters already matching image name&version references in **docker-compose.yaml**. 
-   However, you can specify a different image name & version.
+   Each time you're triggering the job, the image will be built & tagged with current build number (i.e. weissbeerger-web:v1, weissbeerger-web:v2 etc.).
 
-   If you change the image name or version in Jenkins don't forget to change it in the docker-compose.yaml too.
+   This version is referenced via environment variable ${appVersion} inside of docker-compose.yaml.
 
-3. Start recently built **weissbeerger-web** application by running:
+3. To deploy recently built **weissbeerger-web** application run:
 
     ``
-         docker-compose up -d weissbeerger-web
+         export appVersion=[your version] && docker-compose up -d weissbeerger-web
     ``
+
+
+    Example:
+    ``
+         export appVersion=v1 && docker-compose up -d weissbeerger-web
+    ``
+
+    You will see the command example in the last Print message.

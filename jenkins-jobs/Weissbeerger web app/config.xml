@@ -14,29 +14,22 @@
   <properties>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>dockerfilePath</name>
-          <description></description>
-          <defaultValue>/var/jenkins_home/docker-images/weissbeerger-web</defaultValue>
-          <trim>false</trim>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>appVersion</name>
-          <description></description>
-          <defaultValue>v1</defaultValue>
-          <trim>false</trim>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
           <name>appName</name>
-          <description></description>
-          <defaultValue>weissbeerger-web</defaultValue>
-          <trim>false</trim>
-        </hudson.model.StringParameterDefinition>
+          <description>Application to build</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>weissbeerger-web</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.80">
-    <script>pipeline {
+    <script>def dockerfilePath=&quot;/var/jenkins_home/docker-images/weissbeerger-web&quot;
+
+pipeline {
     
     agent any
     
@@ -44,8 +37,11 @@
         stage(&quot;Build_docker_image&quot;) {
             steps {
                     script {
-                        def weissbeergerImage = docker.build(&quot;${appName}:${appVersion}&quot;, &quot;${dockerfilePath}&quot;) 
+                        def applicationVersion=&quot;v${BUILD_NUMBER}&quot;
+                        def weissbeergerImage = docker.build(&quot;${appName}:${applicationVersion}&quot;, &quot;${dockerfilePath}&quot;) 
                         //weissbeergerImage.push()
+                        echo &quot;${appName} application (version: ${applicationVersion}) successfully built.&quot;
+                        echo &quot;Run the following command to re-deploy it &apos;export appVersion=${applicationVersion} &amp;&amp; docker-compose up -d weissbeerger-web&apos;&quot;
                     }
             }
         }
