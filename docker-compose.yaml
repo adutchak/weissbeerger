@@ -6,7 +6,6 @@ services:
     ports:
       - '8080:8080'
     volumes:
-      - ./jenkins-home:/var/jenkins_home
       - ./jenkins-jobs:/var/jenkins_home/jobs #Persistent storage for Jobs
       - ./docker-images:/var/jenkins_home/docker-images #This path is referenced in the jenkins job to build web docker images
       - /var/run/docker.sock:/var/run/docker.sock #Mounting local docker daemon socket into Jenkins so it can utilize host's Docker engine
