@@ -9,7 +9,7 @@
 
    Jenkins should be avaliable **http://localhost:8080/** url at this moment.
 
-   Dockerfile for Jenkins is located in this [folder](docker-images/weissbeerger-jenkins-with-docker).
+   Dockerfile for Jenkins is located in this folder [./docker-images/weissbeerger-jenkins-with-docker](docker-images/weissbeerger-jenkins-with-docker).
    It inherits official Jenkins image + makes docker installation (to be able to build docker images from the docker container).
 
    Folder **./jenkins-home** (used in Dockerfile) has been excluded from the repository since it's massive and contains only Jenkins-specific (no jobs) settings.
@@ -18,9 +18,9 @@
 
 2. To build **weissbeerger-web** application as requested in the exercise (assuming we'll be relying on local docker images cache, without push\pull proccess involved) - use pipeline named **"Weissbeerger web app"**. 
    
-   Application source code is located in [here](docker-images/weissbeerger-web/web)
+   Application source code is located in here [./docker-images/weissbeerger-web/web](docker-images/weissbeerger-web/web)
 
-   Nginx Dockerfile and config for the application is located [here](docker-images/weissbeerger-web)
+   Nginx Dockerfile and config for the application is located here [./docker-images/weissbeerger-web](docker-images/weissbeerger-web)
 
    Each time you're triggering the job, the image will be built & tagged with current build number (i.e. weissbeerger-web:v1, weissbeerger-web:v2 etc.).
 
