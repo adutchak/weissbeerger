@@ -1,3 +1,4 @@
 jenkins-home
 jenkins-jobs/*/builds
 jenkins-jobs/*/nextBuildNumber
+jenkins-jobs/*/builds/permalinks

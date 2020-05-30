@@ -38,33 +38,25 @@
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.80">
-    <script>pipeline {
-    
-    agent any
-    
-    stages {
-        stage(&quot;Build_docker_image&quot;) {
-            steps {
-                    checkout([$class: &apos;GitSCM&apos;, 
-                              branches: [[name: &apos;*/${codeVersion}&apos;]], 
-                              doGenerateSubmoduleConfigurations: false, 
-                              extensions: [], 
-                              submoduleCfg: [], 
-                              userRemoteConfigs: [[url: &apos;${repo}&apos;]]])
-                    
-                    script {
-                        def applicationVersion=&quot;v${BUILD_NUMBER}&quot;
-                        def weissbeergerImage = docker.build(&quot;${appName}:${applicationVersion}&quot;, &quot;./docker-images/${appName}&quot;) 
-                        //weissbeergerImage.push()
-                        echo &quot;${appName} application (version: ${applicationVersion}) successfully built.&quot;
-                        echo &quot;Run the following command to re-deploy it &apos;export appVersion=${applicationVersion} &amp;&amp; docker-compose up -d weissbeerger-web&apos;&quot;
-                    }
-            }
-        }
-    }
-}</script>
-    <sandbox>true</sandbox>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.80">
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@4.2.2">
+      <configVersion>2</configVersion>
+      <userRemoteConfigs>
+        <hudson.plugins.git.UserRemoteConfig>
+          <url>${repo}</url>
+        </hudson.plugins.git.UserRemoteConfig>
+      </userRemoteConfigs>
+      <branches>
+        <hudson.plugins.git.BranchSpec>
+          <name>*/${codeVersion}</name>
+        </hudson.plugins.git.BranchSpec>
+      </branches>
+      <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+      <submoduleCfg class="list"/>
+      <extensions/>
+    </scm>
+    <scriptPath>Jenkinsfile</scriptPath>
+    <lightweight>false</lightweight>
   </definition>
   <triggers/>
   <disabled>false</disabled>
