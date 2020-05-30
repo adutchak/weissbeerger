@@ -5,8 +5,14 @@ pipeline {
     stages {
         stage("Build_docker_image") {
             steps {
+                    checkout([$class: 'GitSCM', 
+                              branches: [[name: '*/${codeVersion}']], 
+                              doGenerateSubmoduleConfigurations: false, 
+                              extensions: [], 
+                              submoduleCfg: [], 
+                              userRemoteConfigs: [[url: '${repo}']]])
+                    
                     script {
-                        git 'https://github.com/adutchak/weissbeerger.git'
                         def applicationVersion="v${BUILD_NUMBER}"
                         def weissbeergerImage = docker.build("${appName}:${applicationVersion}", "./docker-images/${appName}") 
                         //weissbeergerImage.push()
